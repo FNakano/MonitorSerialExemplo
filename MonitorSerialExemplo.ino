@@ -1,18 +1,15 @@
-String typed;   // for incoming serial data
+String typed;   // variavel que armazenarah a mensagem, quando chegar.
 
 void setup() {
-         Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
+  Serial.begin(9600);     // inicializa a USB (modo serial) e configura a taxa de transferencia para 9600 bps
 }
 
 void loop() {
+  if (Serial.available() > 0) {
+    // se for maior que zero ha mensagem para receber.
+    typed = Serial.readString();          // arduino le a mensagem
 
-         // send data only when you receive data:
-         if (Serial.available() > 0) {
-                 // read the incoming byte:
-                 typed = Serial.readString();
-
-                 // say what you got:
-                 Serial.print("I received: ");
-                 Serial.println(typed);
-         }
+    Serial.print("Arduino recebeu... ");  // arduino envia mensagem ao computador acusando o recebimento
+    Serial.println(typed);                // arduino devolve a mesma mensagem ao computador.
+  }
 }
